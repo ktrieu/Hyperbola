@@ -1,7 +1,10 @@
 #include <iostream>
 
+#include "App.h"
+
 int main(int argc, char** argv) {
-	std::cout << "This is the engine.\n";
+	App app;
+	std::cout << "Init complete.\n";
 	std::cin.ignore();
 	return 0;
 }
