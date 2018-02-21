@@ -4,7 +4,7 @@
 
 int main(int argc, char** argv) {
 	App app;
-	std::cout << "Init complete.\n";
-	std::cin.ignore();
+	app.init();
+	app.run();
 	return 0;
 }
