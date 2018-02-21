@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HyperbolaEngine", "HyperbolaEngine\HyperbolaEngine.vcxproj", "{409DEA25-F016-44BE-B14C-F8D1314A2A8C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{87E1A241-60ED-4A49-8006-0181DFFCADC3} = {87E1A241-60ED-4A49-8006-0181DFFCADC3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HyperbolaTools", "HyperbolaTools\HyperbolaTools.vcxproj", "{87E1A241-60ED-4A49-8006-0181DFFCADC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,14 @@ Global
 		{409DEA25-F016-44BE-B14C-F8D1314A2A8C}.Release|x64.Build.0 = Release|x64
 		{409DEA25-F016-44BE-B14C-F8D1314A2A8C}.Release|x86.ActiveCfg = Release|Win32
 		{409DEA25-F016-44BE-B14C-F8D1314A2A8C}.Release|x86.Build.0 = Release|Win32
+		{87E1A241-60ED-4A49-8006-0181DFFCADC3}.Debug|x64.ActiveCfg = Debug|x64
+		{87E1A241-60ED-4A49-8006-0181DFFCADC3}.Debug|x64.Build.0 = Debug|x64
+		{87E1A241-60ED-4A49-8006-0181DFFCADC3}.Debug|x86.ActiveCfg = Debug|Win32
+		{87E1A241-60ED-4A49-8006-0181DFFCADC3}.Debug|x86.Build.0 = Debug|Win32
+		{87E1A241-60ED-4A49-8006-0181DFFCADC3}.Release|x64.ActiveCfg = Release|x64
+		{87E1A241-60ED-4A49-8006-0181DFFCADC3}.Release|x64.Build.0 = Release|x64
+		{87E1A241-60ED-4A49-8006-0181DFFCADC3}.Release|x86.ActiveCfg = Release|Win32
+		{87E1A241-60ED-4A49-8006-0181DFFCADC3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
