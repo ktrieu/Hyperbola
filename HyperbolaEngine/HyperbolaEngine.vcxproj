@@ -136,6 +136,9 @@
   <ItemGroup>
     <ClInclude Include="src\App.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="resource\test_resource.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
