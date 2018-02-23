@@ -34,13 +34,26 @@ void enumerateResources(fs::path resourcePath, fs::path outputPath) {
 	}
 }
 
-void copyResources() {
+void copyResource(fs::path from, fs::path to) {
+	std::cout << "Copying " << to.filename() << "\n";
+	fs::copy_file(from, to);
+}
+
+void processResources() {
 	for (auto resource : resources) {
-		//create any subdirectories if they don't exist
-		if (!fs::exists(resource.second.parent_path())) {
+		if (!fs::exists(resource.second)) {
+			//create subdirectories
 			fs::create_directories(resource.second.parent_path());
+			copyResource(resource.first, resource.second);
 		}
-		fs::copy_file(resource.first, resource.second, fs::copy_options::overwrite_existing);
+		else {
+			//check timestamps to avoid unnnecessary copying
+			fs::file_time_type resourceWriteTime = fs::last_write_time(resource.first);
+			fs::file_time_type outWriteTime = fs::last_write_time(resource.second);
+			if (resourceWriteTime > outWriteTime) {
+				copyResource(resource.first, resource.second);
+			}
+		}
 	}
 }
 
@@ -55,6 +68,6 @@ int main(int argc, char** argv) {
 	std::cout << "Resource folder is: " << resourcePath << "\n";
 	std::cout << "Output folder is: " << outputPath << "\n";
 	enumerateResources(resourcePath, outputPath);
-	copyResources();
+	processResources();
 	return 0;
 }
