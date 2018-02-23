@@ -33,7 +33,7 @@ void processBlend(fs::path from, fs::path to) {
 	//just find the first mesh in the scene for now
 	aiMesh* mesh = scene->mMeshes[0];
 	//write a new file directly to the output location
-	std::ofstream newFile(to);
+	std::ofstream newFile(to.replace_extension(".hmsh"));
 	newFile << "HYPB";
 	//write vertexes and normals
 	newFile << mesh->mNumVertices;
