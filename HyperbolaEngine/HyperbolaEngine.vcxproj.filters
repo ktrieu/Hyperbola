@@ -33,4 +33,7 @@
   <ItemGroup>
     <Text Include="resource\test_resource.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\model\fish.blend" />
+  </ItemGroup>
 </Project>
