@@ -37,24 +37,28 @@ void processBlend(fs::path from, fs::path to) {
 	newFile << "HYPB";
 	//write vertexes and normals
 	newFile << mesh->mNumVertices;
+	std::vector<float> vertexData;
 	for (int i = 0; i < mesh->mNumVertices; i++) {
 		aiVector3D vert = mesh->mVertices[i];
 		aiVector3D normal = mesh->mNormals[i];
-		newFile << vert.x;
-		newFile << vert.y;
-		newFile << vert.z;
-		newFile << normal.x;
-		newFile << normal.y;
-		newFile << normal.z;
+		vertexData.push_back(vert.x);
+		vertexData.push_back(vert.y);
+		vertexData.push_back(vert.z);
+		vertexData.push_back(normal.x);
+		vertexData.push_back(normal.y);
+		vertexData.push_back(normal.z);
 	}
+	newFile.write((char*)vertexData.data(), sizeof(float) * mesh->mNumVertices * 6);
 	//write indexes
 	newFile << mesh->mNumFaces;
+	std::vector<unsigned int> indexes;
 	for (int i = 0; i < mesh->mNumFaces; i++) {
 		aiFace face = mesh->mFaces[i];
-		newFile << face.mIndices[0];
-		newFile << face.mIndices[1];
-		newFile << face.mIndices[2];
+		indexes.push_back(face.mIndices[0]);
+		indexes.push_back(face.mIndices[1]);
+		indexes.push_back(face.mIndices[2]);
 	}
+	newFile.write((char*)indexes.data(), sizeof(unsigned int) * mesh->mNumFaces * 3);
 }
 
 void enumerateResources(fs::path resourcePath, fs::path outputPath) {
