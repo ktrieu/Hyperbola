@@ -1,6 +1,11 @@
 #include <iostream>
 #include <filesystem>
 #include <map>
+#include <fstream>
+
+#include <assimp\Importer.hpp>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
 
 namespace fs = std::experimental::filesystem;
 
@@ -22,6 +27,36 @@ fs::path getPathRelativeTo(fs::path path, fs::path root) {
 
 std::map<fs::path, fs::path> resources;
 
+void processBlend(fs::path from, fs::path to) {
+	Assimp::Importer importer;
+	const aiScene* scene = importer.ReadFile(from.string(), aiProcess_Triangulate);
+	//just find the first mesh in the scene for now
+	aiMesh* mesh = scene->mMeshes[0];
+	//write a new file directly to the output location
+	std::ofstream newFile(to);
+	newFile << "HYPB";
+	//write vertexes and normals
+	newFile << mesh->mNumVertices;
+	for (int i = 0; i < mesh->mNumVertices; i++) {
+		aiVector3D vert = mesh->mVertices[i];
+		aiVector3D normal = mesh->mNormals[i];
+		newFile << vert.x;
+		newFile << vert.y;
+		newFile << vert.z;
+		newFile << normal.x;
+		newFile << normal.y;
+		newFile << normal.z;
+	}
+	//write indexes
+	newFile << mesh->mNumFaces;
+	for (int i = 0; i < mesh->mNumFaces; i++) {
+		aiFace face = mesh->mFaces[i];
+		newFile << face.mIndices[0];
+		newFile << face.mIndices[1];
+		newFile << face.mIndices[2];
+	}
+}
+
 void enumerateResources(fs::path resourcePath, fs::path outputPath) {
 	fs::recursive_directory_iterator resourceIter(resourcePath);
 	for (fs::path path : resourceIter) {
@@ -35,8 +70,15 @@ void enumerateResources(fs::path resourcePath, fs::path outputPath) {
 }
 
 void copyResource(fs::path from, fs::path to) {
-	std::cout << "Copying " << to.filename() << "\n";
-	fs::copy_file(from, to);
+	fs::path ext = from.extension();
+	if (ext.string() == ".blend") {
+		std::cout << "Post processing .blend: " << to.filename() << "\n";
+		processBlend(from, to);
+	}
+	else {
+		std::cout << "Copying " << to.filename() << "\n";
+		fs::copy_file(from, to);
+	}
 }
 
 void processResources() {
