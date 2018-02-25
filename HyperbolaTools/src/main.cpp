@@ -34,7 +34,6 @@ void processBlend(fs::path from, fs::path to) {
 	aiMesh* mesh = scene->mMeshes[0];
 	//write a new file directly to the output location
 	std::ofstream newFile(to.replace_extension(".hmsh"));
-	newFile << "HYPB";
 	//write vertexes and normals
 	newFile << mesh->mNumVertices;
 	std::vector<float> vertexData;
