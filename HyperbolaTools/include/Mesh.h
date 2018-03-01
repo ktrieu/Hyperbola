@@ -6,7 +6,7 @@ struct Mesh {
 	int numVertices;
 	std::vector<float> vertexData;
 	int numIndices;
-	std::vector<float> indexData;
+	std::vector<unsigned int> indexData;
 
 	template <class Archive>
 	void serialize(Archive& ar) {
