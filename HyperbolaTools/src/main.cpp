@@ -7,6 +7,12 @@
 #include <assimp\scene.h>
 #include <assimp\postprocess.h>
 
+#include <cereal\cereal.hpp>
+#include <cereal\archives\binary.hpp>
+#include <cereal\types\vector.hpp>
+
+#include "Mesh.h"
+
 namespace fs = std::experimental::filesystem;
 
 fs::path getPathRelativeTo(fs::path path, fs::path root) {
@@ -31,33 +37,30 @@ void processBlend(fs::path from, fs::path to) {
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(from.string(), aiProcess_Triangulate);
 	//just find the first mesh in the scene for now
-	aiMesh* mesh = scene->mMeshes[0];
-	//write a new file directly to the output location
-	std::ofstream newFile(to.replace_extension(".hmsh"));
-	//write vertexes and normals
-	newFile << mesh->mNumVertices;
-	std::vector<float> vertexData;
-	for (int i = 0; i < mesh->mNumVertices; i++) {
-		aiVector3D vert = mesh->mVertices[i];
-		aiVector3D normal = mesh->mNormals[i];
-		vertexData.push_back(vert.x);
-		vertexData.push_back(vert.y);
-		vertexData.push_back(vert.z);
-		vertexData.push_back(normal.x);
-		vertexData.push_back(normal.y);
-		vertexData.push_back(normal.z);
+	aiMesh* aiMesh = scene->mMeshes[0];
+	Mesh mesh;
+	mesh.numVertices = aiMesh->mNumVertices;
+	mesh.numIndices = aiMesh->mNumFaces * 3;
+	for (int i = 0; i < aiMesh->mNumVertices; i++) {
+		aiVector3D vert = aiMesh->mVertices[i];
+		aiVector3D normal = aiMesh->mNormals[i];
+		mesh.vertexData.push_back(vert.x);
+		mesh.vertexData.push_back(vert.y);
+		mesh.vertexData.push_back(vert.z);
+		mesh.vertexData.push_back(normal.x);
+		mesh.vertexData.push_back(normal.y);
+		mesh.vertexData.push_back(normal.z);
 	}
-	newFile.write((char*)vertexData.data(), sizeof(float) * mesh->mNumVertices * 6);
-	//write indexes
-	newFile << mesh->mNumFaces;
 	std::vector<unsigned int> indexes;
-	for (int i = 0; i < mesh->mNumFaces; i++) {
-		aiFace face = mesh->mFaces[i];
-		indexes.push_back(face.mIndices[0]);
-		indexes.push_back(face.mIndices[1]);
-		indexes.push_back(face.mIndices[2]);
+	for (int i = 0; i < aiMesh->mNumFaces; i++) {
+		aiFace face = aiMesh->mFaces[i];
+		mesh.indexData.push_back(face.mIndices[0]);
+		mesh.indexData.push_back(face.mIndices[1]);
+		mesh.indexData.push_back(face.mIndices[2]);
 	}
-	newFile.write((char*)indexes.data(), sizeof(unsigned int) * mesh->mNumFaces * 3);
+	std::ofstream os(to.replace_extension("hmsh"), std::ios::binary);
+	cereal::BinaryOutputArchive archive(os);
+	archive(mesh);
 }
 
 void enumerateResources(fs::path resourcePath, fs::path outputPath) {
