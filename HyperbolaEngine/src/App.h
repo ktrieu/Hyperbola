@@ -1,5 +1,7 @@
 #pragma once
 
+#include "resource\ResourceLoader.h"
+
 class GLFWwindow;
 
 class App
@@ -16,6 +18,8 @@ private:
 	int m_width = 1080;
 
 	GLFWwindow* m_window;
+
+	ResourceLoader m_resLoader;
 
 };
 

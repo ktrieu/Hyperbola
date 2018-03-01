@@ -25,10 +25,15 @@ void App::init() {
 		std::cout << "Failed to load OpenGL.\n";
 	}
 	std::cout << "HyperbolaEngine: GL version: " << GLVersion.major << "." << GLVersion.minor << "\n";
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	std::cout << "Loading resources.\n";
+	m_resLoader.loadAll();
 }
 
 void App::run() {
 	while (!glfwWindowShouldClose(m_window)) {
+		glClear(GL_COLOR_BUFFER_BIT);
 		glfwPollEvents();
+		glfwSwapBuffers(m_window);
 	}
 }

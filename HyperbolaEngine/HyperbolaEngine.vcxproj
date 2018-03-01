@@ -70,11 +70,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)src;$(ProjjectDir)lib\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src;$(SolutionDir)HyperbolaTools\include;$(ProjjectDir)lib\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)src;$(ProjjectDir)lib\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src;$(SolutionDir)HyperbolaTools\include;$(ProjjectDir)lib\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -132,11 +132,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\resource\ResourceLoader.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\glad_src\glad.c" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\resource\ResourceLoader.h" />
     <ClInclude Include="src\App.h" />
   </ItemGroup>
   <ItemGroup>
