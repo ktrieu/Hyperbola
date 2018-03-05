@@ -85,7 +85,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <PostBuildEvent>
-      <Command>$(TargetDir)HyperbolaTools.exe $(ProjectDir)resource $(TargetDir)</Command>
+      <Command>"$(TargetDir)HyperbolaTools.exe" "$(ProjectDir)resource" "$(TargetDir)"</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
