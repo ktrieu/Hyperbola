@@ -35,5 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\model\fish.blend" />
+    <None Include="resource\shader\phong.vert" />
+    <None Include="resource\shader\phong.frag" />
   </ItemGroup>
 </Project>
