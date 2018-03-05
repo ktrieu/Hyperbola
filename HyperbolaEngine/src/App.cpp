@@ -1,6 +1,6 @@
 #include "App.h"
 
-#include <glad\glad.h>
+#include <gl\gl3w.h>
 #include <GLFW\glfw3.h>
 #include <iostream>
 
@@ -21,10 +21,10 @@ void App::init() {
 		std::cout << "Failed to create window.\n";
 	}
 	glfwMakeContextCurrent(m_window);
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-		std::cout << "Failed to load OpenGL.\n";
+	if (gl3wInit() != 0) {
+		std::cout << "Failed to init OpenGL.\n";
 	}
-	std::cout << "HyperbolaEngine: GL version: " << GLVersion.major << "." << GLVersion.minor << "\n";
+	std::cout << "HyperbolaEngine: GL version: " << glGetString(GL_VERSION) << "\n";
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	std::cout << "Loading resources.\n";
 	m_resLoader.loadAll();
