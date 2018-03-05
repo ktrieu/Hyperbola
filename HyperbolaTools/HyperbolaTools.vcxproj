@@ -88,7 +88,8 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)lib\bin\*" "$(TargetDir)" /D
+      <Command>
+
 
 </Command>
     </PostBuildEvent>
