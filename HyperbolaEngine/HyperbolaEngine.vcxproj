@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="src\resource\ResourceLoader.h" />
     <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\shader\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\model\fish.blend" />

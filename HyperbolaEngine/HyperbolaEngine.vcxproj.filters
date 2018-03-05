@@ -32,6 +32,9 @@
     <ClInclude Include="src\resource\ResourceLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\shader\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\model\fish.blend" />

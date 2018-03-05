@@ -1,6 +1,7 @@
 #include "ResourceLoader.h"
 
 #include <fstream>
+#include <string>
 
 #include <cereal\cereal.hpp>
 #include <cereal\archives\binary.hpp>
@@ -39,12 +40,32 @@ void ResourceLoader::loadAll() {
 	}
 }
 
+void ResourceLoader::loadShader(std::ifstream& is, std::string& name, GLenum type) {
+	is.seekg(std::ios::end);
+	unsigned int len = is.tellg();
+	is.seekg(std::ios::beg);
+	std::string shaderData;
+	shaderData.reserve(len);
+	is.read((char*)shaderData.data(), len);
+	Shader shader(shaderData, type);
+	m_shaders.emplace(std::make_pair(name, shader));
+}
+
 void ResourceLoader::load(fs::path path) {
+	std::string relPath = getPathRelativeTo(path, fs::current_path()).string();
 	if (path.extension() == ".hmsh") {
 		std::ifstream is(path, std::ios::binary);
 		cereal::BinaryInputArchive archive(is);
 		Mesh mesh;
 		archive(mesh);
-		m_meshes.insert(std::make_pair(getPathRelativeTo(path, fs::current_path()).string(), mesh));
+		m_meshes.insert(std::make_pair(relPath, mesh));
+	}
+	if (path.extension() == ".vert") {
+		std::ifstream is(path);
+		loadShader(is, relPath, GL_VERTEX_SHADER);
+	}
+	if (path.extension() == ".frag") {
+		std::ifstream is(path);
+		loadShader(is, relPath, GL_FRAGMENT_SHADER);
 	}
 }
