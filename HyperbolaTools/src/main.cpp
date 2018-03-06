@@ -42,7 +42,7 @@ void processBlend(fs::path from, fs::path to) {
 	Mesh mesh;
 	mesh.numVertices = aiMesh->mNumVertices;
 	mesh.numIndices = aiMesh->mNumFaces * 3;
-	for (int i = 0; i < aiMesh->mNumVertices; i++) {
+	for (unsigned int i = 0; i < aiMesh->mNumVertices; i++) {
 		aiVector3D vert = aiMesh->mVertices[i];
 		aiVector3D normal = aiMesh->mNormals[i];
 		mesh.vertexData.push_back(vert.x);
@@ -53,7 +53,7 @@ void processBlend(fs::path from, fs::path to) {
 		mesh.vertexData.push_back(normal.z);
 	}
 	std::vector<unsigned int> indexes;
-	for (int i = 0; i < aiMesh->mNumFaces; i++) {
+	for (unsigned int i = 0; i < aiMesh->mNumFaces; i++) {
 		aiFace face = aiMesh->mFaces[i];
 		mesh.indexData.push_back(face.mIndices[0]);
 		mesh.indexData.push_back(face.mIndices[1]);
