@@ -2,7 +2,7 @@
 
 #include "resource\ResourceLoader.h"
 
-class GLFWwindow;
+struct GLFWwindow;
 
 class App
 {
