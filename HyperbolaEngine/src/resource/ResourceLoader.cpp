@@ -58,6 +58,7 @@ void ResourceLoader::load(fs::path path) {
 		cereal::BinaryInputArchive archive(is);
 		Mesh mesh;
 		archive(mesh);
+		mesh.name = relPath;
 		m_meshes.insert(std::make_pair(relPath, mesh));
 	}
 	if (path.extension() == ".vert") {
