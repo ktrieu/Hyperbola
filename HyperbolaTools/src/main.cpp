@@ -43,14 +43,16 @@ void processBlend(fs::path from, fs::path to) {
 	mesh.numVertices = aiMesh->mNumVertices;
 	mesh.numIndices = aiMesh->mNumFaces * 3;
 	for (unsigned int i = 0; i < aiMesh->mNumVertices; i++) {
-		aiVector3D vert = aiMesh->mVertices[i];
-		aiVector3D normal = aiMesh->mNormals[i];
-		mesh.vertexData.push_back(vert.x);
-		mesh.vertexData.push_back(vert.y);
-		mesh.vertexData.push_back(vert.z);
-		mesh.vertexData.push_back(normal.x);
-		mesh.vertexData.push_back(normal.y);
-		mesh.vertexData.push_back(normal.z);
+		aiVector3D aiVert = aiMesh->mVertices[i];
+		aiVector3D aiNormal = aiMesh->mNormals[i];
+		Vertex vertex;
+		vertex.pos.x = aiVert.x;
+		vertex.pos.y = aiVert.y;
+		vertex.pos.z = aiVert.z;
+		vertex.norm.x = aiNormal.x;
+		vertex.norm.y = aiNormal.y;
+		vertex.norm.z = aiNormal.z;
+		mesh.vertexData.push_back(vertex);
 	}
 	std::vector<unsigned int> indexes;
 	for (unsigned int i = 0; i < aiMesh->mNumFaces; i++) {
