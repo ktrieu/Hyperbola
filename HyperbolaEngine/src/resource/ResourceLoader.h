@@ -20,7 +20,7 @@ public:
 
 	void loadAll();
 
-	Mesh& getMesh();
+	Mesh& getMesh(std::string& name);
 
 private:
 	std::unordered_map<std::string, Mesh> m_meshes;

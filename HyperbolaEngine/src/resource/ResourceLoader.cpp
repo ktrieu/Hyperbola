@@ -31,6 +31,15 @@ ResourceLoader::ResourceLoader() {
 ResourceLoader::~ResourceLoader() {
 }
 
+Mesh& ResourceLoader::getMesh(std::string& name) {
+	if (m_meshes.count(name) != 0) {
+		return m_meshes[name];
+	}
+	else {
+		throw std::runtime_error("Resource " + name + " could not be found");
+	}
+}
+
 void ResourceLoader::loadAll() {
 	fs::recursive_directory_iterator iter(fs::current_path());
 	for (fs::path res : iter) {
