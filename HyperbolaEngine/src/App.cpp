@@ -28,6 +28,11 @@ void App::init() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	std::cout << "Loading resources.\n";
 	m_resLoader.loadAll();
+	std::string mName("model\\fish.hmsh");
+	std::vector<std::reference_wrapper<Mesh>> meshes;
+	meshes.emplace_back(m_resLoader.getMesh(mName));
+	m_renderer.createVao();
+	m_renderer.uploadMeshes(meshes);
 }
 
 void App::run() {

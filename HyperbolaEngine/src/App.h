@@ -1,6 +1,7 @@
 #pragma once
 
 #include "resource\ResourceLoader.h"
+#include "render\IndexedRenderer.h"
 
 struct GLFWwindow;
 
@@ -20,6 +21,7 @@ private:
 	GLFWwindow* m_window;
 
 	ResourceLoader m_resLoader;
+	IndexedRenderer m_renderer;
 
 };
 

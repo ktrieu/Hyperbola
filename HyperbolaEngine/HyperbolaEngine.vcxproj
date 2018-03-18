@@ -132,11 +132,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\render\IndexedRenderer.cpp" />
     <ClCompile Include="src\resource\ResourceLoader.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\render\IndexedRenderer.h" />
     <ClInclude Include="src\resource\ResourceLoader.h" />
     <ClInclude Include="src\App.h" />
     <ClInclude Include="src\shader\Shader.h" />
